@@ -30,7 +30,7 @@ const App: React.FC = () => {
     const interval = setInterval(() => {
       setDucks((prevDucks) =>
         prevDucks.map((duck) => {
-          duck.position += duck.move();
+          duck.position = duck.move();
           return duck;
         })
       );

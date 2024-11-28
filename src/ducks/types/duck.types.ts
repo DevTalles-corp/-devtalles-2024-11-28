@@ -14,6 +14,6 @@ export class Duck {
   }
 
   move(): number {
-    return Math.floor(Math.random() * 10);
+    return this.position + Math.floor(Math.random() * 10);
   }
 }
