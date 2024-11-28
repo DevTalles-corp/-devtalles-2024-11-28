@@ -9,7 +9,8 @@ export const ProgressDuck = ({ duck }: Props) => {
     <div key={duck.id} className="flex items-center">
       {/* Nombre del pato */}
       <div className="text-right absolute text-3xl font-bold left-24">
-        {duck.name} - <small className="font-thin">{duck.strategy.name}</small>
+        {duck.name}
+        {/* <small className="font-thin">- {duck.strategy.name}</small> */}
       </div>
 
       {/* Pato */}

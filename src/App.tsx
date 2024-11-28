@@ -1,16 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { ProgressDuck } from './ducks/ProgressDuck';
-import {
-  DiveStrategy,
-  Duck,
-  FlyStrategy,
-  SwimStrategy,
-} from './ducks/types/duck.types';
+import { Duck } from './ducks/types/duck.types';
 
 const ducksData: Duck[] = [
-  new Duck(1, 'Lucas', new SwimStrategy()),
-  new Duck(2, 'Daisy', new FlyStrategy()),
-  new Duck(3, 'Daffy', new DiveStrategy()),
+  new Duck(1, 'Lucas'),
+  new Duck(2, 'Daisy'),
+  new Duck(3, 'Daffy'),
+  new Duck(4, 'Donald'),
 ];
 
 const App: React.FC = () => {
@@ -19,14 +15,11 @@ const App: React.FC = () => {
   const [winner, setWinner] = useState<Duck>();
 
   const startRace = () => {
-    // setDucks(ducksData);
     setWinner(undefined);
-    setDucks((prevDucks) =>
-      prevDucks.map((duck) => ({
-        ...duck,
-        position: 0,
-      }))
-    );
+    setDucks((prevDucks) => {
+      prevDucks.forEach((duck) => duck.reset());
+      return prevDucks;
+    });
 
     setIsRacing(true);
   };
@@ -36,10 +29,10 @@ const App: React.FC = () => {
 
     const interval = setInterval(() => {
       setDucks((prevDucks) =>
-        prevDucks.map((duck) => ({
-          ...duck,
-          position: duck.strategy.move(duck.position),
-        }))
+        prevDucks.map((duck) => {
+          duck.position += duck.move();
+          return duck;
+        })
       );
     }, 200);
 
@@ -79,7 +72,7 @@ const App: React.FC = () => {
       {/* Ganador */}
       {winner ? (
         <div className="mt-4 text-2xl font-bold text-green-600">
-          🏁 Ganador: {winner.name} - estrategia: {winner.strategy.name} 🏁
+          🏁 Ganador: {winner.name} - estrategia: {winner.name} 🏁
         </div>
       ) : (
         <div className="mt-4 text-2xl font-bold text-red-600">
