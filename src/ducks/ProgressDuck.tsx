@@ -10,7 +10,7 @@ export const ProgressDuck = ({ duck }: Props) => {
       {/* Nombre del pato */}
       <div className="text-right absolute text-3xl font-bold left-24">
         {duck.name}
-        {/* <small className="font-thin">- {duck.strategy.name}</small> */}
+        <small className="font-thin">- {duck.movementStrategy.name}</small>
       </div>
 
       {/* Pato */}

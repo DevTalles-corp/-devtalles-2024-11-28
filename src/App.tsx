@@ -1,12 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import { ProgressDuck } from './ducks/ProgressDuck';
-import { Duck } from './ducks/types/duck.types';
+
+import {
+  DiveStrategy,
+  Duck,
+  FlyStrategy,
+  SwimStrategy,
+  WalkStrategy,
+} from './ducks/types/duck.types';
 
 const ducksData: Duck[] = [
-  new Duck(1, 'Lucas'),
-  new Duck(2, 'Daisy'),
-  new Duck(3, 'Daffy'),
-  new Duck(4, 'Donald'),
+  new Duck(1, 'Lucas', new FlyStrategy()),
+  new Duck(2, 'Daisy', new DiveStrategy()),
+  new Duck(3, 'Daffy', new SwimStrategy()),
+  new Duck(4, 'Donald', new FlyStrategy()),
 ];
 
 const App: React.FC = () => {
@@ -30,7 +37,7 @@ const App: React.FC = () => {
     const interval = setInterval(() => {
       setDucks((prevDucks) =>
         prevDucks.map((duck) => {
-          duck.position = duck.move();
+          duck.position = duck.movementStrategy.move(duck.position);
           return duck;
         })
       );
